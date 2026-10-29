@@ -8,49 +8,21 @@
 body{min-height:100vh;overflow:hidden;font-family:sans-serif;background:#000}
 .bg-photo{position:fixed;inset:0;z-index:0;background-image:url('https://github.com/CloudPremium/001/raw/refs/heads/main/images.png');background-size:cover;background-position:center}
 .bg-overlay{position:fixed;inset:0;z-index:1;background:linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.85))}
-
-/* GARIS TIGA - SUDAH TERANG PAKAI RGB */
-.hamburger{
-  position:fixed;top:20px;left:20px;z-index:10;width:50px;height:50px;
-  background:rgb(255,255,255); /* RGB PUTIH SOLID - BIAR KELIATAN */
-  border:2px solid rgb(37,211,102); /* RGB HIJAU WA */
-  border-radius:12px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
-  cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.4);
-}
-.hamburger span{
-  width:22px;height:3px;
-  background:rgb(0,0,0); /* RGB HITAM - GARIS JADI JELAS */
-  border-radius:2px;transition:0.4s
-}
-.hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
-.hamburger.active span:nth-child(2){opacity:0}
-.hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-
-.side-menu{position:fixed;top:0;left:0;z-index:9;width:320px;max-width:85vw;height:100vh;background:rgba(15,15,15,0.92);backdrop-filter:blur(25px);border-right:1px solid rgba(255,255,255,0.1);padding:85px 16px 20px;transform:translateX(-100%);transition:transform 0.5s cubic-bezier(0.175,0.885,0.32,1.1)}
+.hamburger{position:fixed;top:20px;left:20px;z-index:10;width:50px;height:50px;background:rgb(255,255,255);border:2px solid rgb(37,211,102);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+.hamburger span{width:22px;height:3px;background:rgb(0,0,0);border-radius:2px;transition:0.4s}
+.hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.side-menu{position:fixed;top:0;left:0;z-index:9;width:320px;max-width:85vw;height:100vh;background:rgba(15,15,15,0.92);backdrop-filter:blur(25px);border-right:1px solid rgba(255,255,255,0.1);padding:85px 16px 20px;transform:translateX(-100%);transition:transform 0.5s cubic-bezier(0.175,0.885,0.32,1.1);overflow-y:auto}
 .side-menu.open{transform:translateX(0)}
+.admin-box{background:rgb(255,255,255);border:2px solid rgb(37,211,102);border-radius:14px;padding:18px;text-align:center;margin-bottom:16px}
+.admin-box h2{color:rgb(0,0,0);font-size:17px;font-weight:800}
+.divider{height:2px;background:rgb(37,211,102);margin:16px 0;border-radius:10px}
 
-/* KOTAK NAMA - SUDAH TERANG */
-.admin-box{
-  background:rgb(255,255,255); /* RGB PUTIH */
-  border:2px solid rgb(37,211,102);
-  border-radius:14px;
-  padding:18px;
-  text-align:center;
-  margin-bottom:16px;
-}
-.admin-box h2{color:rgb(0,0,0);font-size:17px;font-weight:800} /* RGB HITAM BIAR KONTRAST */
-
-.divider{height:2px;background:rgb(37,211,102);margin:16px 0;border-radius:10px} /* RGB HIJAU */
-
-/* KOTAK WA - SUDAH TERANG */
+/* ANIMASI DEFAULT UNTUK SEMUA KOTAK - INI JANGAN DIUBAH */
 .link{
   position:relative;display:flex;align-items:center;gap:14px;
-  width:100%;padding:18px 20px;
-  background:rgb(255,255,255); /* RGB PUTIH */
-  border:2px solid rgb(37,211,102);
-  border-radius:16px;
-  text-decoration:none;color:rgb(0,0,0);overflow:hidden;cursor:pointer;
+  width:100%;padding:18px 20px;margin-bottom:12px;
+  background:rgb(255,255,255);border:2px solid rgb(37,211,102);
+  border-radius:16px;text-decoration:none;color:rgb(0,0,0);overflow:hidden;cursor:pointer;
 }
 .link:active{transform:scale(0.97)}
 .icon{width:48px;height:48px;background:linear-gradient(135deg,rgb(37,211,102),rgb(18,140,126));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
@@ -61,8 +33,7 @@ body{min-height:100vh;overflow:hidden;font-family:sans-serif;background:#000}
 .link.clicked .check{transform:translateY(0)}.link.clicked .main{opacity:0}
 .ripple{position:absolute;background:radial-gradient(circle,rgba(37,211,102,0.5),transparent);border-radius:50%;transform:translate(-50%,-50%) scale(0);animation:rippleAnim 1.5s ease-out}
 @keyframes rippleAnim{to{transform:translate(-50%,-50%) scale(5);opacity:0}}
-.backdrop{position:fixed;inset:0;z-index:8;background:rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:0.4s}
-.backdrop.open{opacity:1;pointer-events:auto}
+.backdrop{position:fixed;inset:0;z-index:8;background:rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:0.4s}.backdrop.open{opacity:1;pointer-events:auto}
 </style>
 </head>
 <body>
@@ -70,22 +41,33 @@ body{min-height:100vh;overflow:hidden;font-family:sans-serif;background:#000}
 <div class="bg-photo"></div>
 <div class="bg-overlay"></div>
 <div class="backdrop" id="backdrop"></div>
-
 <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
 
 <div class="side-menu" id="sideMenu">
-  <div class="admin-box">
-    <h2>ADMIN Adityaa Rahman</h2>
-  </div>
+  <div class="admin-box"><h2>ADMIN Adityaa Rahman</h2></div>
   <div class="divider"></div>
-  <a class="link" href="https://wa.me/6285123114344" target="_blank" id="waLink">
-    <div class="main">
-      <div class="icon">💬</div>
-      <div class="text"><b>WhatsApp</b></div>
-      <div class="arrow">→</div>
-    </div>
+
+  <!-- KOTAK 1 - WHATSAPP (CONTOH) -->
+  <a class="link" href="https://wa.me/6285123114344" target="_blank">
+    <div class="main"><div class="icon">💬</div><div class="text"><b>WhatsApp</b></div><div class="arrow">→</div></div>
     <div class="check">✓ Membuka WhatsApp...</div>
   </a>
+
+<a class="link" href="https://deltaexploits.gg/" target="_blank">
+    <div class="main"><div class="icon">👹</div><div class="text"><b>Delta Roblox</b></div><div class="arrow">→</div></div>
+    <div class="check">✓ Membuka...</div>
+  </a>
+
+  <!-- ========================================== -->
+  <!-- TAMBAH KOTAK BARU DI SINI - COPY BLOK DI BAWAH INI -->
+  <!-- ========================================== -->
+  <!-- CONTOH JIKA MAU TAMBAH:
+  <a class="link" href="https://link-baru.com" target="_blank">
+    <div class="main"><div class="icon">🔗</div><div class="text"><b>Nama Kotak</b></div><div class="arrow">→</div></div>
+    <div class="check">✓ Membuka...</div>
+  </a>
+  -->
+
 </div>
 
 <script>
@@ -95,15 +77,19 @@ const backdrop=document.getElementById('backdrop');
 function toggleMenu(){ham.classList.toggle('active');menu.classList.toggle('open');backdrop.classList.toggle('open')}
 ham.addEventListener('click',toggleMenu);
 backdrop.addEventListener('click',toggleMenu);
-document.getElementById('waLink').addEventListener('click', function(e){
-  const r=this.getBoundingClientRect();const ripple=document.createElement('span');
-  ripple.className='ripple';ripple.style.left=(e.clientX-r.left)+'px';ripple.style.top=(e.clientY-r.top)+'px';
-  ripple.style.width=ripple.style.height='250px';this.appendChild(ripple);
-  this.classList.add('clicked');setTimeout(()=>ripple.remove(),1500);
-  setTimeout(()=>{window.open(this.href,'_blank');this.classList.remove('clicked')},1000);
-  e.preventDefault();
+
+// ANIMASI OTOMATIS UNTUK SEMUA KOTAK - GAK PERLU SETTING LAGI
+document.querySelectorAll('.link').forEach(link => {
+  link.addEventListener('click', function(e){
+    const r=this.getBoundingClientRect();const ripple=document.createElement('span');
+    ripple.className='ripple';ripple.style.left=(e.clientX-r.left)+'px';ripple.style.top=(e.clientY-r.top)+'px';
+    ripple.style.width=ripple.style.height='250px';this.appendChild(ripple);
+    this.classList.add('clicked');setTimeout(()=>ripple.remove(),1500);
+    setTimeout(()=>{window.open(this.href,'_blank');this.classList.remove('clicked')},1000);
+    e.preventDefault();
+  });
 });
 </script>
 
 </body>
-</html>
+  </html>
